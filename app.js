@@ -1,8 +1,10 @@
 (function(){
 "use strict";
-var SHELL = '<header class="top"><div class="top-in"><div class="brand"><span class="eyebrow">Hunter: The Reckoning 5 · досье</span><div class="name-row"><b id="hdr-name">Охотник</b><button type="button" class="lock-btn" id="btn-lock" aria-pressed="false"></button></div><span id="hdr-imp" class="hdr-imp" hidden></span></div>'+
+var QR_SRC = "data:image/png;base64,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";
+var SHELL = '<header class="top"><div class="top-in"><button type="button" class="qr-btn" id="btn-qr" aria-label="QR-код канала @couchheroes"><img src="'+QR_SRC+'" alt=""></button><div class="brand"><span class="eyebrow">Hunter: The Reckoning 5 · досье</span><div class="name-row"><b id="hdr-name">Охотник</b><button type="button" class="lock-btn" id="btn-lock" aria-pressed="false"></button><button type="button" class="lock-btn sess-btn" id="btn-session" aria-pressed="false">Режим сессии</button></div><span id="hdr-imp" class="hdr-imp" hidden></span></div>'+
   '<div class="actions"><span id="save-status" class="status" role="status" aria-live="polite"></span>'+
   '<button type="button" class="btn small" id="btn-chars">Персонажи</button>'+
+  '<button type="button" class="btn ghost small" id="btn-rules">Правила</button>'+
   '<button type="button" class="btn ghost small" id="btn-theme">Тема</button>'+
   '<button type="button" class="btn ghost small" id="btn-export">Экспорт</button>'+
   '<label class="btn ghost small file" for="imp-in">Импорт<input type="file" id="imp-in" accept=".json,application/json" hidden></label>'+
@@ -341,12 +343,10 @@ var FIREARMS_SPECS ="Арбалеты, Торговля оружием, Оруж
 var STORE = "h5-chars-v1", CUR = "h5-current-v1";
 function uid(){ return "c" + Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
 function readStore(){ try { return JSON.parse(localStorage.getItem(STORE) || "{}") || {}; } catch(e){ return {}; } }
-var chars = readStore(), curId = null, state;
+var chars = readStore(), curId = null, state, firstRun = false;
 try { curId = localStorage.getItem(CUR); } catch(e){}
 if (!Object.keys(chars).length){
-  var seed = null; try { seed = JSON.parse(document.getElementById("sheet-data").textContent); } catch(e){}
-  if (!seed) seed = blank();
-  seed.id = uid(); seed.saved = Date.now(); chars[seed.id] = seed; curId = seed.id;
+  var seed = blank(); normalize(seed); seed.id = uid(); seed.saved = Date.now(); chars[seed.id] = seed; curId = seed.id; var firstRun = true;
 }
 if (!curId || !chars[curId]) curId = Object.keys(chars)[0];
 state = chars[curId];
@@ -481,12 +481,12 @@ function render(){
 
   /* touchstones */
   var tBody = '<div class="rows">';
-  state.touchstones.forEach(function(t,ix){ tBody += '<div class="row3"><input data-bind="touchstones.'+ix+'.name" value="'+esc(t.name)+'" placeholder="Кто" aria-label="Пробный камень"><input data-bind="touchstones.'+ix+'.conviction" value="'+esc(t.conviction)+'" placeholder="Убеждение" aria-label="Убеждение"><input data-bind="touchstones.'+ix+'.note" value="'+esc(t.note)+'" placeholder="Заметка" aria-label="Заметка"><button type="button" class="x" data-del="touchstones" data-i="'+ix+'" aria-label="Убрать">×</button></div>'; });
-  tBody += '</div><button type="button" class="btn ghost small" data-addrow="touchstones">+ Пробный камень</button><p class="hint">По книге на старте 1–3 Пробных камня. Без них охотник не восстанавливает Силу воли и считается в Отчаянии.</p>';
-  h += section("touch","Пробные камни",tBody);
+  state.touchstones.forEach(function(t,ix){ tBody += '<div class="row3"><input data-bind="touchstones.'+ix+'.name" value="'+esc(t.name)+'" placeholder="Кто" aria-label="Привязанность"><input data-bind="touchstones.'+ix+'.conviction" value="'+esc(t.conviction)+'" placeholder="Убеждение" aria-label="Убеждение"><input data-bind="touchstones.'+ix+'.note" value="'+esc(t.note)+'" placeholder="Заметка" aria-label="Заметка"><button type="button" class="x" data-del="touchstones" data-i="'+ix+'" aria-label="Убрать">×</button></div>'; });
+  tBody += '</div><button type="button" class="btn ghost small" data-addrow="touchstones">+ Привязанность</button><p class="hint">По книге на старте 1–3 Привязанности (в книге — Пробные камни). Без них охотник не восстанавливает Силу воли и считается в Отчаянии.</p>';
+  h += section("touch","Привязанности",tBody);
 
   /* advantages */
-  function advCol(kind,title,limit){ var list=state[kind]; var c='<div><div class="adv-h"><h3>'+title+'</h3><span class="count'+(sum(list)>limit?' over':'')+'">'+sum(list)+' / '+limit+'</span></div>';
+  function advCol(kind,title,limit){ var list=state[kind]; var c='<div><div class="adv-h"><h3>'+title+'</h3></div>';
     list.forEach(function(a,ix){ c += '<div class="adv"><button type="button" class="adv-n" data-info="adv:'+esc(a.name)+'">'+esc(a.name)+'</button>'+dots(kind+"."+ix+".dots",+a.dots||0)+'<button type="button" class="x" data-del="'+kind+'" data-i="'+ix+'" aria-label="Убрать">×</button><input class="note" data-bind="'+kind+'.'+ix+'.note" value="'+esc(a.note)+'" placeholder="Подробности"></div>'; });
     return c+'<button type="button" class="btn ghost small" data-addadv="'+kind+'">+ Добавить</button></div>'; }
   h += section("adv","Преимущества и недостатки",'<div class="cols2">'+advCol("advantages","Преимущества",7)+advCol("flaws","Недостатки",2)+'</div>');
@@ -498,7 +498,13 @@ function render(){
   h += section("gear","Снаряжение",wBody);
 
   /* xp */
-  var xBody = '<div class="xp"><label class="fld" for="xp-t"><span>Всего опыта</span><input id="xp-t" type="number" data-bind="xp.total" data-num="1" value="'+esc(state.xp.total)+'"></label><label class="fld" for="xp-s"><span>Потрачено</span><input id="xp-s" type="number" data-bind="xp.spent" data-num="1" value="'+esc(state.xp.spent)+'"></label>'+field("История трат","xp.log",{area:1,rows:3})+'</div>';
+  var xt=+state.xp.total||0, xs=+state.xp.spent||0, xav=xt-xs, hist=state.xp.hist||[], lastH=hist[hist.length-1];
+  var xBody = '<div class="xp-sum"><div><span class="lbl">Всего</span><b class="big">'+xt+'</b></div><div><span class="lbl">Потрачено</span><b class="big">'+xs+'</b></div><div><span class="lbl">Доступно</span><b class="big'+(xav<0?' neg':'')+'">'+xav+'</b></div></div>'+
+    '<div class="row-btns"><button type="button" class="btn" data-xpbuy="1">Потратить опыт</button><button type="button" class="btn ghost" data-xpgain="1">+ Получить опыт</button>'+
+    (lastH?'<button type="button" class="btn ghost" data-xpundo="1" title="Отменить последнюю запись">Отменить: '+esc(lastH.d)+' ('+(lastH.u&&lastH.u.gain?'−':'+')+lastH.c+')</button>':'')+'</div>'+
+    '<label class="fld wide xp-log" for="f-xp-log"><span>Журнал опыта</span><textarea id="f-xp-log" data-bind="xp.log" rows="'+Math.min(14,Math.max(3,String(state.xp.log||"").split("\n").length+1))+'">'+esc(state.xp.log)+'</textarea></label>'+
+    '<details class="xp-man"><summary>Поправить числа вручную</summary><div class="xp"><label class="fld" for="xp-t"><span>Всего опыта</span><input id="xp-t" type="number" data-bind="xp.total" data-num="1" data-rerender="1" value="'+esc(state.xp.total)+'"></label><label class="fld" for="xp-s"><span>Потрачено</span><input id="xp-s" type="number" data-bind="xp.spent" data-num="1" data-rerender="1" value="'+esc(state.xp.spent)+'"></label></div></details>'+
+    '<p class="hint">Цены по корбуку: атрибут — новый уровень ×5; навык — новый уровень ×3 (первая точка 3); специализация 3; Преимущество 3 за точку; Грань 7; перк 3.</p>';
   h += section("xp","Опыт",xBody);
 
   /* notes */
@@ -515,6 +521,38 @@ function render(){
 
 function poolSize(p){ var a = p.a ? (state.attrs[p.a]||0) : 0; var s = p.s ? ((state.skills[p.s]||{}).d||0) : 0; return a + s + (+p.b||0); }
 
+/* ---------- xp tracker ---------- */
+var buyPending = null, buyCat = "attr";
+function xpAvail(){ return (+state.xp.total||0)-(+state.xp.spent||0); }
+function xpLog(line){ var l = String(state.xp.log||"").replace(/\s+$/,""); state.xp.log = (l?l+"\n":"")+line; }
+function xpRecord(desc,cost,undo){ state.xp.spent=(+state.xp.spent||0)+cost; state.xp.hist=state.xp.hist||[]; var line="• "+desc+" — "+cost; state.xp.hist.push({d:desc,c:cost,u:undo,l:line,t:Date.now()}); xpLog(line); }
+function finishBuy(desc,undo){ if(!buyPending) return; xpRecord(desc,buyPending.cost,undo); buyPending=null; }
+function xpUndo(){ var h=state.xp.hist||[], e=h.pop(); if(!e) return; var u=e.u||{};
+  if (u.gain) state.xp.total=(+state.xp.total||0)-e.c; else state.xp.spent=(+state.xp.spent||0)-e.c;
+  if (u.path) setPath(state,u.path,u.prev); if (u.pop) state[u.pop].pop(); if (u.popperk!==undefined && state.edges[u.popperk]) state.edges[u.popperk].perks.pop();
+  var lines=String(state.xp.log||"").split("\n"), i=lines.lastIndexOf(e.l); if(i>=0){ lines.splice(i,1); state.xp.log=lines.join("\n"); } }
+function gainHtml(){ return '<h2>Получить опыт</h2><div class="xp"><label class="fld" for="g-n"><span>Сколько</span><input id="g-n" type="number" min="1" value="1"></label><label class="fld wide" for="g-r"><span>За что</span><input id="g-r" placeholder="Сессия 3, конец истории…"></label></div><div class="row-btns" style="margin-top:12px"><button type="button" class="btn" data-dogain="1">Добавить</button><button type="button" class="btn ghost" data-close="1">Отмена</button></div>'; }
+function buyRow(code,label,sub,cost,ok,why){ return '<li><button type="button" data-buy="'+code+'"'+(ok?'':' disabled')+'><small>'+(ok?cost+' опыта':esc(why))+'</small>'+esc(label)+'<span>'+esc(sub)+'</span></button></li>'; }
+function buyHtml(){ var av=xpAvail(), cats={attr:"Атрибуты",skill:"Навыки",spec:"Специализации",adv:"Преимущества",edge:"Грани",perk:"Перки"};
+  var h='<h2>Потратить опыт<small>Доступно: '+av+'</small></h2><div class="tabs">'; Object.keys(cats).forEach(function(k){ h+='<button type="button" class="tab'+(k===buyCat?' on':'')+'" data-buycat="'+k+'">'+cats[k]+'</button>'; }); h+='</div><ul class="pick-list buy-list">';
+  function lim(cost,cur){ return cur>=5?"максимум":cost>av?"не хватает: "+cost:""; }
+  if (buyCat==="attr") Object.keys(ATTRS).forEach(function(g){ ATTRS[g].forEach(function(a){ var c=state.attrs[a[0]]||0, cost=(c+1)*5, w=lim(cost,c); h+=buyRow("attr:"+a[0],a[1]+" "+c+" → "+(c+1),g,cost,!w,w); }); });
+  if (buyCat==="skill") Object.keys(SKILLS).forEach(function(g){ SKILLS[g].forEach(function(a){ var c=(state.skills[a[0]]||{}).d||0, cost=(c+1)*3, w=lim(cost,c); h+=buyRow("skill:"+a[0],a[1]+" "+c+" → "+(c+1),g,cost,!w,w); }); });
+  if (buyCat==="spec"){ var any=false; Object.keys(SKILLS).forEach(function(g){ SKILLS[g].forEach(function(a){ var s=state.skills[a[0]]||{}; if(!(s.d>0)) return; any=true; h+='<li class="spec-buy"><div><b>'+esc(a[1])+'</b><span>'+(s.s?'Уже: '+esc(s.s):'Пока без специализации')+'</span></div><input id="spec-'+a[0]+'" placeholder="Новая специализация" aria-label="Специализация: '+esc(a[1])+'"><button type="button" class="btn small" data-buy="spec:'+a[0]+'"'+(av<3?' disabled':'')+'>'+(av<3?'Не хватает':'3 опыта')+'</button></li>'; }); }); if(!any) h+='<li class="hint">Специализацию можно взять только в навыке с точками.</li>'; }
+  if (buyCat==="adv"){ state.advantages.forEach(function(a,ix){ var c=+a.dots||0, w=lim(3,c); h+=buyRow("adv:"+ix,(a.name||"Без названия")+" "+c+" → "+(c+1),"Поднять на точку",3,!w,w); }); h+=buyRow("newadv:1","Новое Преимущество","Выбрать из каталога, 1 точка",3,av>=3,"не хватает: 3"); }
+  if (buyCat==="edge") h+=buyRow("newedge:1","Новая Грань","Выбрать из списка",7,av>=7,"не хватает: 7");
+  if (buyCat==="perk"){ if(!state.edges.length) h+='<li class="hint">Сначала нужна Грань.</li>'; state.edges.forEach(function(e,ix){ var E=EDGES[e.key]; if(!E) return; var left=E.perks.filter(function(p){return (e.perks||[]).indexOf(p.k)<0;}).length; h+=buyRow("newperk:"+ix,"Перк для «"+E.name+"»",left?"Доступно перков: "+left:"Все перки уже взяты",3,av>=3&&left>0,left?"не хватает: 3":"нет перков"); }); }
+  return h+'</ul>'; }
+function doBuy(code){ var p=code.split(":"), t=p[0], k=p[1], av=xpAvail(), c, cost;
+  if (t==="attr"){ c=state.attrs[k]||0; cost=(c+1)*5; if(c>=5||cost>av) return false; xpRecord(ALLNAMES[k]+" "+c+" → "+(c+1),cost,{path:"attrs."+k,prev:c}); state.attrs[k]=c+1; return true; }
+  if (t==="skill"){ c=(state.skills[k]||{}).d||0; cost=(c+1)*3; if(c>=5||cost>av) return false; xpRecord(ALLNAMES[k]+" "+c+" → "+(c+1),cost,{path:"skills."+k+".d",prev:c}); state.skills[k].d=c+1; return true; }
+  if (t==="spec"){ var inp=document.getElementById("spec-"+k), txt=inp?inp.value.trim():""; if(!txt){ if(inp) inp.focus(); return false; } if(av<3) return false; var prev=state.skills[k].s||""; xpRecord("Специализация: "+ALLNAMES[k]+" ("+txt+")",3,{path:"skills."+k+".s",prev:prev}); state.skills[k].s=prev?prev+", "+txt:txt; return true; }
+  if (t==="adv"){ var a=state.advantages[+k]; c=+a.dots||0; if(c>=5||av<3) return false; xpRecord((a.name||"Преимущество")+" "+c+" → "+(c+1),3,{path:"advantages."+k+".dots",prev:c}); a.dots=c+1; return true; }
+  if (t==="newadv"){ if(av<3) return false; buyPending={cost:3}; var items=CATALOG.filter(function(x){return !x.flaw;}).map(function(x){return {val:"advantages:"+x.n,label:x.n,sub:x.c+" · "+x.g,text:x.t};}); items.push({val:"advantages:__custom",label:"Своё…",sub:"Пустая строка",text:"Название впишешь сам."}); mBody.innerHTML=pickerHtml("Новое Преимущество за 3 опыта",items,"data-pickadv"); return "pending"; }
+  if (t==="newedge"){ if(av<7) return false; buyPending={cost:7}; mBody.innerHTML=pickerHtml("Новая Грань за 7 опыта",Object.keys(EDGES).filter(function(key){return !state.edges.some(function(e){return e.key===key;});}).map(function(key){var E=EDGES[key]; return {val:key,label:E.name,sub:E.en+" · "+E.cat,text:E.sys};}),"data-pickedge"); return "pending"; }
+  if (t==="newperk"){ if(av<3) return false; var ed=state.edges[+k], E=EDGES[ed.key]; buyPending={cost:3}; mBody.innerHTML=pickerHtml("Перк «"+E.name+"» за 3 опыта",E.perks.filter(function(x){return (ed.perks||[]).indexOf(x.k)<0;}).map(function(x){return {val:k+":"+x.k,label:x.n,sub:x.en,text:x.t};}),"data-pickperk"); return "pending"; }
+  return false; }
+
 /* ---------- roller ---------- */
 var roll = {dice:5, desp:0, diff:3, pick:[], out:""};
 roll.desp = +state.cell.desperation||0;
@@ -526,11 +564,13 @@ function doRoll(){
   var all = reg.concat(dsp), succ = all.filter(function(x){return x>=6;}).length, tens = all.filter(function(x){return x===10;}).length;
   var crit = Math.floor(tens/2); succ += crit*2;
   var ones = dsp.filter(function(x){return x===1;}).length;
-  var win = succ >= diff, margin = succ - diff;
+  var win = succ >= diff, margin = succ - diff; roll.ones = ones;
   var faces = reg.map(function(x){return '<span class="die'+(x>=6?' s':'')+(x===10?' t':'')+'">'+x+'</span>';}).join("") + dsp.map(function(x){return '<span class="die d'+(x>=6?' s':'')+(x===1?' one':'')+(x===10?' t':'')+'">'+x+'</span>';}).join("");
-  var o = (roll.pen?'<p class="imp-note">Учтён штраф Ослабления −2 ('+esc(roll.pen.why)+').</p>':'')+'<div class="faces">'+faces+'</div><div class="res '+(win?'win':'fail')+'"><b>'+succ+'</b> усп. · '+(diff?(win?'Победа, перевес '+margin:'Провал, недобор '+(-margin)):'без сложности')+(crit?' · крит ×'+crit:'')+'</div>';
-  if (ones) o += '<div class="ones"><p>На костях Отчаяния выпало «1» ×'+ones+'. Выбери:</p><button type="button" class="btn small" data-overreach="1">Перегиб: оставить результат, Опасность +1</button><button type="button" class="btn small warn" data-fall="1">Отчаяние: провалить тест</button></div>';
-  roll.out = o; document.getElementById("roll-out").innerHTML = o;
+  var o = (roll.pen?'<p class="imp-note">Учтён штраф Ослабления −2 ('+esc(roll.pen.why)+').</p>':'')+'<div class="faces">'+faces+'</div><div class="res '+(win?'win':'fail')+'"><b>'+succ+'</b> усп. · '+(diff?(win?'Победа, перевес '+margin:'Провал, недобор '+(-margin)):'без сложности')+(crit?' · крит ×'+crit:'')+(succ===0?' · полный провал':'')+'</div>';
+  if (ones && win) o += '<div class="ones"><p>На костях Отчаяния выпало «1» ×'+ones+'. Выбери:</p><button type="button" class="btn small" data-overreach="1">Перегиб: победа, Опасность +'+ones+'</button><button type="button" class="btn small warn" data-fall="1">Отчаяние: провалить тест</button></div>';
+  roll.out = o;
+  if (ones && !win && !state.despair){ roll.out += '<p class="hint warnline">«1» на кости Отчаяния при провале: охотник в Отчаянии до Искупления.</p>'; state.despair = true; changed(true); return; }
+  document.getElementById("roll-out").innerHTML = roll.out;
 }
 
 /* long press on a trait name opens its description */
@@ -543,7 +583,7 @@ app.addEventListener("contextmenu", function(e){ if (e.target.closest(".tn[data-
 /* ---------- modal ---------- */
 var modal = document.getElementById("modal"), mBody = document.getElementById("m-body");
 function openModal(html){ mBody.innerHTML = html; modal.hidden = false; var f = mBody.querySelector("input,button"); if (f) f.focus(); }
-function closeModal(){ modal.hidden = true; mBody.innerHTML = ""; }
+function closeModal(){ modal.hidden = true; mBody.innerHTML = ""; buyPending = null; }
 function infoHtml(key){
   var p = key.split(":");
   if (key==="creed"){ var c=CREEDS[state.info.creed]; if(!c) return listInfo("Кредо",CREEDS,function(k,v){return '<b>Кости Отчаяния:</b> '+esc(v.desp);});
@@ -605,23 +645,30 @@ app.addEventListener("click", function(e){
   if (d.usepool!==undefined){ var pl=state.pools[+d.usepool]; roll.pick=[pl.a,pl.s].filter(Boolean); roll.dice=poolSize(pl); roll.pen = poolPenalty(roll.pick); if (roll.pen) roll.dice = Math.max(0, roll.dice-2); roll.diff = pl.diff||roll.diff; roll.out=""; render(); return; }
   if (d.savepool){ if (roll.pick.length<1) { roll.out='<p class="hint">Сначала выбери атрибут и навык.</p>'; render(); return; } var a=roll.pick.filter(function(k){return state.attrs[k]!==undefined;})[0]||"", s=roll.pick.filter(function(k){return state.attrs[k]===undefined;})[0]||""; state.pools.push({name:(ALLNAMES[s]||ALLNAMES[a]||"Пул"),a:a,s:s,b:0,note:""}); changed(true); return; }
   if (d.roll){ doRoll(); return; }
-  if (d.overreach){ state.cell.danger = Math.min(5,(+state.cell.danger||0)+1); roll.out = roll.out.replace(/<div class="ones">[\s\S]*$/,'<p class="hint">Перегиб: Опасность ячейки +1.</p>'); changed(true); return; }
+  if (d.overreach){ var on=roll.ones||1; state.cell.danger = Math.min(5,(+state.cell.danger||0)+on); roll.out = roll.out.replace(/<div class="ones">[\s\S]*$/,'<p class="hint">Перегиб: Опасность ячейки +'+on+'.</p>'); changed(true); return; }
   if (d.fall){ state.despair = true; roll.out = roll.out.replace(/<div class="ones">[\s\S]*$/,'<p class="hint">Тест провален, охотник в Отчаянии до Искупления.</p>'); changed(true); return; }
   if (d.tab){ noteTab = d.tab; render(); return; }
+  if (d.xpbuy){ openModal(buyHtml()); return; }
+  if (d.xpgain){ openModal(gainHtml()); var gn=document.getElementById("g-n"); if(gn){ gn.focus(); gn.select(); } return; }
+  if (d.xpundo){ xpUndo(); changed(true); return; }
 });
 modal.addEventListener("click", function(e){
   if (e.target===modal || e.target.closest("[data-close]")) { closeModal(); return; }
   var b = e.target.closest("button"); if (!b) return; var d = b.dataset;
   if (d.pickgear!==undefined){ var g=GEAR[+d.pickgear]; state.weapons.push({name:g[1],dmg:g[2],notes:g[3]}); closeModal(); changed(true); return; }
-  if (d.pickedge){ state.edges.push({key:d.pickedge, perks:[], note:""}); closeModal(); changed(true); return; }
-  if (d.pickperk){ var pp=d.pickperk.split(":"); var ed=state.edges[+pp[0]]; ed.perks = ed.perks||[]; ed.perks.push(pp[1]); closeModal(); changed(true); return; }
-  if (d.pickadv){ var ix=d.pickadv.indexOf(":"), kind=d.pickadv.slice(0,ix), name=d.pickadv.slice(ix+1); state[kind].push({name: name==="__custom"?"Своё":name, dots:1, note:""}); closeModal(); changed(true); return; }
+  if (d.pickedge){ state.edges.push({key:d.pickedge, perks:[], note:""}); finishBuy("Грань: "+EDGES[d.pickedge].name,{pop:"edges"}); closeModal(); changed(true); return; }
+  if (d.pickperk){ var pp=d.pickperk.split(":"); var ed=state.edges[+pp[0]]; ed.perks = ed.perks||[]; ed.perks.push(pp[1]); var PK=EDGES[ed.key].perks.filter(function(x){return x.k===pp[1];})[0]; finishBuy("Перк: "+(PK?PK.n:pp[1]),{popperk:+pp[0]}); closeModal(); changed(true); return; }
+  if (d.pickadv){ var ix=d.pickadv.indexOf(":"), kind=d.pickadv.slice(0,ix), name=d.pickadv.slice(ix+1); state[kind].push({name: name==="__custom"?"Своё":name, dots:1, note:""}); if(kind==="advantages") finishBuy("Преимущество: "+(name==="__custom"?"Своё":name)+" •",{pop:kind}); closeModal(); changed(true); return; }
+  if (d.buycat){ buyCat=d.buycat; mBody.innerHTML=buyHtml(); return; }
+  if (d.buy){ var r=doBuy(d.buy); if (r===true){ changed(true); mBody.innerHTML=buyHtml(); setStatus("Куплено","ok"); } return; }
+  if (d.dogain){ var n=Math.round(+document.getElementById("g-n").value||0), why=document.getElementById("g-r").value.trim(); if(!n) return; state.xp.total=(+state.xp.total||0)+n; state.xp.hist=state.xp.hist||[]; var line="+ "+n+" опыта"+(why?" — "+why:""); state.xp.hist.push({d:"получено "+n,c:n,u:{gain:1},l:line,t:Date.now()}); xpLog(line); closeModal(); changed(true); return; }
   if (d.confirmNew){ return; }
 });
 modal.addEventListener("click", function(e){ var b=e.target.closest("[data-pal]"); if(!b) return; palette = applyPalette(b.getAttribute("data-pal")); try{ localStorage.setItem("h5-palette", palette); }catch(x){} mBody.innerHTML = paletteHtml(); });
 document.getElementById("btn-theme").addEventListener("click", function(){ openModal(paletteHtml()); });
 modal.addEventListener("input", function(e){ if (e.target.id!=="m-search") return; var q=e.target.value.trim().toLowerCase(); mBody.querySelectorAll(".pick-list li").forEach(function(li){ li.hidden = q && li.getAttribute("data-name").indexOf(q)<0; }); });
-document.addEventListener("keydown", function(e){ if (e.key==="Escape" && !modal.hidden) closeModal(); });
+document.addEventListener("keydown", function(e){ if (e.key==="Escape" && !modal.hidden) closeModal();
+  if (e.key==="Enter" && !modal.hidden && e.target.tagName==="INPUT"){ var bt = e.target.id && e.target.id.indexOf("spec-")===0 ? e.target.parentNode.querySelector("[data-buy]") : (e.target.id==="g-n"||e.target.id==="g-r") ? mBody.querySelector("[data-dogain]") : null; if (bt){ e.preventDefault(); bt.click(); } } });
 
 function loadPortrait(file){
   var r = new FileReader();
@@ -629,6 +676,70 @@ function loadPortrait(file){
   r.readAsDataURL(file);
 }
 
+document.getElementById("btn-lock").addEventListener("click", function(){ state.locked = !state.locked; changed(true); });
+var sessionOn = false; try { sessionOn = localStorage.getItem("h5-session")==="1"; } catch(e){}
+function applySession(){ document.body.classList.toggle("session", sessionOn); var b=document.getElementById("btn-session"); b.setAttribute("aria-pressed", String(sessionOn)); b.textContent = sessionOn ? "Весь лист" : "Режим сессии"; b.title = sessionOn ? "Показать весь лист" : "Только то, что нужно за столом: Здоровье, Сила воли, Ячейка, броски, Грани, снаряжение"; }
+applySession();
+document.getElementById("btn-session").addEventListener("click", function(){ sessionOn = !sessionOn; try{ localStorage.setItem("h5-session", sessionOn?"1":"0"); }catch(e){} applySession(); window.scrollTo(0,0); });
+
+/* ---------- rules reference ---------- */
+var RULES = [
+ ["Как бросать", [
+  "<b>Пул</b> = Атрибут + Навык (например, Ловкость + Атлетика). В листе: тапни атрибут, затем навык — пул соберётся в «Бросках». Можно выбрать готовый быстрый пул.",
+  "Бросаешь столько d10, сколько в пуле. <b>6–9 — успех</b>, <b>10 — успех</b> и шанс на крит, <b>1–5 — пусто</b>.",
+  "<b>Победа</b>, если успехов не меньше Сложности. <b>Перевес</b> — успехи сверх Сложности: от него считаются урон и эффекты Граней.",
+  "<b>Крит</b>: каждая пара десяток даёт +2 успеха сверх самих десяток. Две «10» = 4 успеха, три = 5, четыре = 8.",
+  "<b>Полный провал</b> — ноль успехов: мастер решает, насколько всё плохо и можно ли повторить.",
+  "<b>Победа ценой</b>: если успехи есть, но не хватило, мастер может предложить успех с осложнением (урон, потеря вещи, внимание врага). Можно отказаться.",
+  "<b>Командная работа</b>: бросает самый большой пул, +1 куб за каждого помощника с хотя бы одной точкой в нужном навыке."
+ ]],
+ ["Сложность", [
+  "1 — рутина · 2 — просто · 3 — умеренно · 4 — вызов · 5 — тяжело · 6 — очень сложно · 7+ — почти невозможно.",
+  "Против противника мастер может взять половину его пула (округляя вниз) как Сложность или устроить состязание: оба бросают, у кого больше успехов, тот побеждает.",
+  "Мастер может не бросать за противника, а «взять половину» его пула как число успехов."
+ ]],
+ ["Бонусы и помехи", [
+  "Мастер меняет либо <b>пул</b> (обстоятельства персонажа: специализация, наркотики, устрашающий вид), либо <b>Сложность</b> (внешнее: погода, плохое или отличное снаряжение, стрельба под огнём).",
+  "±2 куба по статистике равны ±1 к Сложности. Обычно мастер не даёт больше ±3 кубов или ±2 к Сложности.",
+  "<b>Специализация</b>: +1 куб, если подходит к действию.",
+  "<b>Ослабление</b>: заполнен трекер Здоровья — −2 к физическим пулам; заполнена Сила воли — −2 к социальным и ментальным. Лист считает это сам.",
+  "<b>Несколько противников</b>: защищаясь, теряешь 1 куб за каждого следующего нападающего. Атаковать нескольких — дели пул.",
+  "<b>Уклонение</b>: Ловкость + Атлетика вместо боевого навыка; при победе урона не наносишь."
+ ]],
+ ["Сила воли", [
+  "Потрать 1 Силу воли (отметь «/»), чтобы <b>перебросить до трёх обычных кубов</b> в броске Атрибута или Навыка, в том числе для Граней.",
+  "Кубы Отчаяния перебрасывать нельзя. Нельзя и в бросках самой Силы воли.",
+  "В начале сессии снимаешь поверхностный урон Силы воли, не больше чем max(Самообладание, Решительность). Выполненное Желание — ещё 1.",
+  "В конце сессии, если действовал по Амбиции, лечишь 1 аггравированный урон Силы воли."
+ ]],
+ ["Отчаяние, Перегиб, Опасность", [
+  "<b>Кубы Отчаяния</b>: если действие попадает в поле твоего <b>Кредо</b>, добавь кубы по уровню Отчаяния ячейки. Считаются как обычные (успехи и криты).",
+  "Если на кубе Отчаяния выпала «1» и тест <b>выигран</b> — выбор: <b>Перегиб</b> (победа остаётся, Опасность +1 за каждую «1») или провалить тест и впасть в <b>Отчаяние</b>.",
+  "«1» на кубе Отчаяния при <b>проигранном</b> тесте — Отчаяние без выбора.",
+  "<b>В Отчаянии</b> нельзя брать кубы Отчаяния, пока не выполнишь условие <b>Искупления</b> своего Драйва. Помочь могут и другие из ячейки.",
+  "<b>Отчаяние ячейки</b> (1–5) растёт от неудач: ранения, побег добычи. Падает, когда дела идут хорошо.",
+  "<b>Опасность</b> — насколько добыча знает о ячейке и готовится. Растёт от Перегибов и сюжета, почти не снижается."
+ ]],
+ ["Урон и лечение", [
+  "Урон = перевес атаки + бонус оружия (лёгкий огнестрел +2, средний +3, тяжёлый +4).",
+  "<b>Поверхностный</b> урон делится пополам (вверх) перед отметкой «/». <b>Аггравированный</b> — «✕», не делится. Траты Силы воли пополам не делятся.",
+  "Трекер заполнен — <b>Ослабление</b> (−2). Каждый новый урон превращает одну «/» в «✕». Весь трекер в «✕» — выбыл (Здоровье: кома или смерть; Сила воли в социальном конфликте: полный слом).",
+  "<b>Лечение</b>: в начале сессии снимаешь поверхностный урон Здоровья до значения Выносливости. Аггравированный: Интеллект + Медицина, Сложность = число «✕» (себе +1), переводит в поверхностный не больше половины Медицины (вверх) за ночь."
+ ]],
+ ["Охотник: что важно", [
+  "<b>Кредо</b> — как ты охотишься; задаёт, когда можно брать кубы Отчаяния.",
+  "<b>Драйв</b> — почему охотишься; задаёт Искупление из Отчаяния.",
+  "<b>Грани</b> и перки — твои особые средства против сверхъестественного; пулы указаны на карточках.",
+  "<b>Амбиция</b> — долгая цель; <b>Желание</b> — цель на сессию, выполнение даёт 1 Силу воли.",
+  "<b>Привязанности</b> и Убеждения держат охотника человеком.",
+  "Исследуй добычу до схватки: многие твари не боятся обычного урона. Ячейка сильнее одиночки.",
+  "<b>Золотое правило</b>: история принадлежит столу, мастер может менять правила."
+ ]]
+];
+function rulesHtml(){ return '<h2>Подсказки по правилам<small>Hunter: The Reckoning 5, корбук</small></h2><div class="rules-list">'+RULES.map(function(s,i){ return '<details'+(i===0?' open':'')+'><summary>'+s[0]+'</summary><ul>'+s[1].map(function(t){return '<li>'+t+'</li>';}).join('')+'</ul></details>'; }).join('')+'</div>'; }
+function qrHtml(){ return '<h2>Наш канал<small>@couchheroes в Telegram</small></h2><div class="qr-big"><img src="'+QR_SRC+'" alt="QR-код канала @couchheroes"></div><div class="row-btns"><a class="btn" href="https://t.me/couchheroes" target="_blank" rel="noopener">Открыть в Telegram</a></div>'; }
+document.getElementById("btn-rules").addEventListener("click", function(){ openModal(rulesHtml()); });
+document.getElementById("btn-qr").addEventListener("click", function(){ openModal(qrHtml()); });
 /* header actions */
 function switchTo(id){ persist(); curId = id; state = chars[id]; normalize(state); roll.pick=[]; roll.out=""; render(); persist(); }
 function charsHtml(){
@@ -637,7 +748,7 @@ function charsHtml(){
     return '<li class="'+(id===curId?'cur':'')+'"><div class="cl-main">'+(c.portrait?'<img src="'+esc(c.portrait)+'" alt="">':'<span class="cl-ph"></span>')+'<div><b>'+esc(i.name||'Без имени')+'</b><small>'+esc([i.creed,i.drive].filter(Boolean).join(' · ')||'—')+'</small><small>'+(c.saved?new Date(c.saved).toLocaleString('ru-RU'):'')+'</small></div></div>'+
       '<div class="row-btns">'+(id===curId?'<span class="tag">Открыт</span>':'<button type="button" class="btn small" data-open="'+id+'">Открыть</button>')+
       '<button type="button" class="btn ghost small" data-copy="'+id+'">Копия</button><button type="button" class="btn ghost small" data-askdel="'+id+'">Удалить</button></div></li>'; }).join('') +
-    '</ul><div class="row-btns"><button type="button" class="btn" data-newchar="1">+ Новый персонаж</button></div><p class="hint">Персонажи хранятся в памяти этого устройства. Чтобы перенести на другое устройство или сделать резервную копию, используй «Экспорт».</p>';
+    '</ul><div class="row-btns"><button type="button" class="btn" data-newchar="1">+ Новый персонаж</button></div><div class="backup-box"><h3>Резервная копия</h3><p class="hint">Персонажи хранятся только в памяти этого устройства и пропадут, если очистить данные браузера. Копия — один файл со всеми персонажами; верни её через «Импорт».</p><p class="hint">'+backupAgo()+'</p><button type="button" class="btn ghost" data-backup="1">Скачать копию всех персонажей</button></div>';
 }
 document.getElementById("btn-chars").addEventListener("click", function(){ openModal(charsHtml()); });
 modal.addEventListener("click", function(e){
@@ -649,9 +760,26 @@ modal.addEventListener("click", function(e){
   if (d.backchars){ openModal(charsHtml()); return; }
   if (d.dodel){ delete chars[d.dodel]; if (d.dodel===curId){ var rest = Object.keys(chars); if (!rest.length){ var n2 = blank(); normalize(n2); n2.id = uid(); chars[n2.id] = n2; rest=[n2.id]; } curId = rest[0]; state = chars[curId]; normalize(state); render(); } persist(); openModal(charsHtml()); return; }
 });
+var LASTBK = "h5-last-backup", SNOOZE = "h5-backup-snooze";
+function lsGet(k){ try { return +localStorage.getItem(k)||0; } catch(e){ return 0; } }
+function lsSet(k,v){ try { localStorage.setItem(k,String(v)); } catch(e){} }
+function backupAgo(){ var t=lsGet(LASTBK); if(!t) return "Копия ещё ни разу не делалась."; var d=Math.floor((Date.now()-t)/864e5); return "Последняя копия: "+(d<1?"сегодня":d===1?"вчера":d+" дн. назад")+"."; }
+function saveFile(name, data){
+  try {
+    var file = new File([data], name, {type:"application/json"});
+    if (navigator.canShare && navigator.canShare({files:[file]})) { navigator.share({files:[file], title:name}).catch(function(){}); return; }
+  } catch(x){}
+  var a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([data],{type:"application/json"})); a.download = name; document.body.appendChild(a); a.click(); setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+}
+function doBackup(){ persist(); var dt=new Date(), p=function(n){return (n<10?"0":"")+n;}; saveFile("h5-backup-"+dt.getFullYear()+"-"+p(dt.getMonth()+1)+"-"+p(dt.getDate())+".json", JSON.stringify({type:"h5-backup", v:1, made:Date.now(), chars:chars}, null, 1)); lsSet(LASTBK, Date.now()); var bn=document.getElementById("backup-banner"); if(bn) bn.remove(); setStatus("Копия сохранена","ok"); }
+function backupDue(){ var last=lsGet(LASTBK), newest=0; Object.keys(chars).forEach(function(id){ newest=Math.max(newest, chars[id].saved||0); }); var anyReal=Object.keys(chars).some(function(id){ return (chars[id].info||{}).name; }); if(!anyReal || newest<=last) return false; if (Date.now()-lsGet(SNOOZE) < 3*864e5) return false; return !last || Date.now()-last > 7*864e5; }
+function showBackupBanner(){ if (!backupDue() || document.getElementById("backup-banner")) return; var d=document.createElement("div"); d.id="backup-banner"; d.className="backup-banner"; d.innerHTML='<span>'+backupAgo()+' Сохрани файл со всеми персонажами — на случай очистки браузера или смены телефона.</span><span class="row-btns"><button type="button" class="btn small" data-bk="go">Сделать копию</button><button type="button" class="btn ghost small" data-bk="later">Позже</button></span>'; app.parentNode.insertBefore(d, app);
+  d.addEventListener("click", function(e){ var t=e.target.closest("[data-bk]"); if(!t) return; if(t.getAttribute("data-bk")==="go") doBackup(); else { lsSet(SNOOZE, Date.now()); d.remove(); } }); }
+modal.addEventListener("click", function(e){ var t=e.target.closest("[data-backup]"); if(!t) return; doBackup(); openModal(charsHtml()); });
 document.getElementById("btn-export").addEventListener("click", function(){
   var name = (state.info.name||"hunter").replace(/[^\wА-Яа-яЁё-]+/g,"_") + ".h5.json";
   var data = JSON.stringify(state, null, 2);
+  saveFile(name, data); return;
   try {
     var file = new File([data], name, {type:"application/json"});
     if (navigator.canShare && navigator.canShare({files:[file]})) { navigator.share({files:[file], title:name}).catch(function(){}); return; }
@@ -660,7 +788,9 @@ document.getElementById("btn-export").addEventListener("click", function(){
 });
 document.getElementById("imp-in").addEventListener("change", function(e){
   var f = e.target.files && e.target.files[0]; if (!f) return;
-  var r = new FileReader(); r.onload = function(){ try { var s = JSON.parse(r.result); normalize(s); s.id = uid(); chars[s.id] = s; switchTo(s.id); setStatus("Импортирован как новый персонаж","ok"); } catch(x){ setStatus("Это не файл листа","err"); } e.target.value=""; }; r.readAsText(f);
+  var r = new FileReader(); r.onload = function(){ try { var s = JSON.parse(r.result);
+      if (s && s.type==="h5-backup" && s.chars){ var n=0, first=null; Object.keys(s.chars).forEach(function(id){ var c=s.chars[id]; if(!c||!c.info) return; normalize(c); var cur=chars[id]; if (cur && (cur.saved||0) > (c.saved||0)) { c.id=uid(); c.info.name=(c.info.name||"Без имени")+" (из копии)"; } else c.id=id; chars[c.id]=c; n++; if(!first) first=c.id; }); if (first) switchTo(first); else persist(); setStatus("Из копии восстановлено: "+n,"ok"); openModal(charsHtml()); e.target.value=""; return; }
+      normalize(s); s.id = uid(); chars[s.id] = s; switchTo(s.id); setStatus("Импортирован как новый персонаж","ok"); } catch(x){ setStatus("Это не файл листа","err"); } e.target.value=""; }; r.readAsText(f);
 });
 var deferredInstall = null, instBtn = document.getElementById("btn-install");
 var standalone = (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches) || window.navigator.standalone;
@@ -674,6 +804,7 @@ window.addEventListener("appinstalled", function(){ instBtn.hidden = true; });
 
 /* ---------- boot ---------- */
 render(); persist();
+if (firstRun) openModal(charsHtml()); else setTimeout(showBackupBanner, 1500);
 if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(function(){});
 if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("sw.js").catch(function(){});
 })();
